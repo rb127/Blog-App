@@ -1,0 +1,12 @@
+<h1>Welcome to the FrontPage</h1>
+<ol>
+  <% blogs.forEach((blog)=>{ %>
+    <div>
+      <h2><li><%= blog.title %></li></h2>
+      <img src="<%= blog.image %>" alt="">
+      <span><%= blog.created %></span>
+      <p><i><%= blog.body %></i></p>
+    </div>
+</ol>
+
+<% }) %>

@@ -48,7 +48,24 @@ app.get("/blogs", (req,res)=>{
   });
 });
 
+//NEW route - form to create a new blog post
+app.get("/blogs/new", (req, res)=>{
+  res.render("new");
+});
 
+//CREATE route
+app.post("/blogs", (req, res)=>{
+  //create new blog
+  //redirect back to index page
+  Blog.create(req.body.blog, (err, newBlog)=>{
+    if(err){
+      res.render("new")
+    }
+    else{
+      res.redirect("/blogs")
+    }
+  });
+});
 
 
 //setting up listening function

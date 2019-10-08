@@ -1,5 +1,7 @@
+<%include ./partials/header %>
+
 <h1>Welcome to the FrontPage</h1>
-<ol>
+<ul>
   <% blogs.forEach((blog)=>{ %>
     <div>
       <h2><li><%= blog.title %></li></h2>
@@ -7,6 +9,6 @@
       <span><%= blog.created %></span>
       <p><i><%= blog.body %></i></p>
     </div>
-</ol>
-
 <% }) %>
+</ul>
+<%include ./partials/footer %>

@@ -1,0 +1,20 @@
+<%include ./partials/header %>
+
+<div class="ui main text container segment">
+  <div class="ui huge header"><%= blog.title %></div>
+  <div class="ui top attached">
+    <div class="item">
+      <img class="ui centered rounded image" src="<%= blog.image %>" alt="">
+    </div>
+    <div class="content">
+      <!-- Using - instead of = would evaluate body and return-->
+      <span><%= blog.created.toDateString() %></span>
+    </div>
+    <div class="description">
+      <p><i><%- blog.body %></i></p>
+    </div>
+    <a href="/blogs/<%= blog._id %>/edit" class="ui black button">Edit Post</a>
+  </div>
+</div>
+<a href="/blogs" class="ui violet button" id="back">Go Back</a>
+<%include ./partials/footer %>

@@ -1,14 +1,17 @@
 <%include ./partials/header %>
 
-<h1>Welcome to the FrontPage</h1>
-<ul>
+<h1 class="index-title">Welcome to the FrontPage</h1>
+<!-- <ul> -->
   <% blogs.forEach((blog)=>{ %>
-    <div>
-      <h2><li><%= blog.title %></li></h2>
+    <div class="BlogPost">
+      <!-- <h2><li><blog.title %></li></h2> -->
+      <h2><%= blog.title %></h2>
       <img src="<%= blog.image %>" alt="">
       <span><%= blog.created %></span>
-      <p><i><%= blog.body %></i></p>
+      <p><i><%- blog.body.substring(0,100) %>....</i></p>
+      <a href="/blogs/<%= blog._id %>" class="ui blue button" >Read More</a>
+      <a href="/blogs/<%= blog._id %>/edit" class="ui green button">Edit Post</a>
     </div>
 <% }) %>
-</ul>
+<!-- </ul> -->
 <%include ./partials/footer %>

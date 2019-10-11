@@ -1,18 +1,31 @@
 const bodyParser = require('body-parser'),
+      methodOverride = require('method-override'),
       express = require('express'),
       mongoose = require('mongoose'),
       app = express();
 
 //APP CONFIG
 //connecting to DB
-mongoose.connect("mongodb://localhost/restful_blog",{useNewUrlParser: true, useUnifiedTopology: true});
+//MongoDB ATLAS url
+url = "mongodb+srv://rohit:project@project-hjkgk.mongodb.net/test?retryWrites=true&w=majority"
+//mongoose.connect("mongodb://localhost/restful_blog",{useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(url,{useNewUrlParser: true, useUnifiedTopology: true}, (err, client)=>{
+  if(err){
+    console.log("Error occured!")
+  }
+  else{
+    console.log("Connected to cloud DB")
+  }
+});
+
 //setting view engine to ejs so don't have to specify ejs in render
 app.set("view engine", "ejs");
 //will serve css files from public dir
 app.use(express.static("public"));
 //allows nested objects to be parsed from url
 app.use(bodyParser.urlencoded({extended:true}));
-
+//app will look for _method in url and use that type(put, delete etc) of method instead of in form
+app.use(methodOverride("_method"));
 //MONGOOSE CONFIG
 const blogSchema = mongoose.Schema({
   title: String,
@@ -59,14 +72,51 @@ app.post("/blogs", (req, res)=>{
   //redirect back to index page
   Blog.create(req.body.blog, (err, newBlog)=>{
     if(err){
-      res.render("new")
+      res.render("new");
     }
     else{
-      res.redirect("/blogs")
+      res.redirect("/blogs");
     }
   });
 });
 
+//SHOW ROUTE
+app.get("/blogs/:id", (req, res)=>{
+  //retrieve from database
+  Blog.findById(req.params.id, (err, blog)=>{
+    if(err){
+      res.redirect("/blogs");
+    }
+    else{
+      res.render("show", {blog: blog});
+    }
+  });
+});
+
+//EDIT ROUTE
+app.get("/blogs/:id/edit", (req, res)=>{
+  Blog.findById(req.params.id, (err, foundBlog)=>{
+    if(err){
+      res.redirect("/blogs");
+    }
+    else{
+      res.render("edit", {blog: foundBlog});
+    }
+
+  })
+});
+
+//UPDATE route
+app.put("/blogs/:id", (req, res)=>{
+  Blog.findByIdAndUpdate(req.params.id, req.body.blog, (err, updatedBlog)=>{
+    if(err){
+      res.redirect("/blogs");
+    }
+    else {
+      res.redirect("/blogs/" + req.params.id);
+    }
+  });
+});
 
 //setting up listening function
 var port = process.env.PORT || 3000;

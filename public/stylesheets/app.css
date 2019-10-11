@@ -1,6 +1,6 @@
-i.icon {
-  font-size: 3em;
-}
+/* i.icon {
+  font-size: 2em;
+} */
 
 .blue{
   color: blue;
@@ -8,4 +8,15 @@ i.icon {
 
 .container.main{
   margin-top: 7.0em;
+}
+
+/* #back{
+  text-align:center;
+} */
+.BlogPost{
+  padding-left: 15px;
+}
+
+.index-title{
+  text-align: center;
 }

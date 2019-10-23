@@ -1,6 +1,6 @@
-/* i.icon {
+i.barIcon {
   font-size: 2em;
-} */
+}
 
 .blue{
   color: blue;
@@ -14,7 +14,7 @@
   text-align:center;
 } */
 .BlogPost{
-  padding-left: 15px;
+  margin-top: 10px;
 }
 
 .index-title{
@@ -23,4 +23,8 @@
 
 #delete{
   display: inline;
+}
+
+#posts{
+  margin-top: 15px;
 }

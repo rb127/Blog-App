@@ -71,11 +71,8 @@ app.get("/blogs/new", (req, res)=>{
 
 //CREATE route
 app.post("/blogs", (req, res)=>{
-  console.log(req.body);
 //req.body is input in the url coming from form
   req.body.blog.body = req.sanitize(req.body.blog.body);
-  console.log("===========");
-  console.log(req.body);
   //create new blog
   //redirect back to index page
   Blog.create(req.body.blog, (err, newBlog)=>{
@@ -116,6 +113,7 @@ app.get("/blogs/:id/edit", (req, res)=>{
 
 //UPDATE route
 app.put("/blogs/:id", (req, res)=>{
+  req.body.blog.body = req.sanitize(req.body.blog.body);
   Blog.findByIdAndUpdate(req.params.id, req.body.blog, (err, updatedBlog)=>{
     if(err){
       res.redirect("/blogs");

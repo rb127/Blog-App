@@ -20,3 +20,7 @@
 .index-title{
   text-align: center;
 }
+
+#delete{
+  display: inline;
+}

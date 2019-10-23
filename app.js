@@ -1,5 +1,6 @@
 const bodyParser = require('body-parser'),
       methodOverride = require('method-override'),
+      expressSanitizer = require('express-sanitizer'),
       express = require('express'),
       mongoose = require('mongoose'),
       app = express();
@@ -26,6 +27,8 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
 //app will look for _method in url and use that type(put, delete etc) of method instead of in form
 app.use(methodOverride("_method"));
+//app will sanitize user input to render html but no scripts
+app.use(expressSanitizer());
 //MONGOOSE CONFIG
 const blogSchema = mongoose.Schema({
   title: String,
@@ -68,6 +71,11 @@ app.get("/blogs/new", (req, res)=>{
 
 //CREATE route
 app.post("/blogs", (req, res)=>{
+  console.log(req.body);
+//req.body is input in the url coming from form
+  req.body.blog.body = req.sanitize(req.body.blog.body);
+  console.log("===========");
+  console.log(req.body);
   //create new blog
   //redirect back to index page
   Blog.create(req.body.blog, (err, newBlog)=>{
@@ -114,6 +122,20 @@ app.put("/blogs/:id", (req, res)=>{
     }
     else {
       res.redirect("/blogs/" + req.params.id);
+    }
+  });
+});
+
+
+//DELETE ROUTE
+app.delete("/blogs/:id", (req, res)=>{
+  Blog.findByIdAndRemove(req.params.id, (err, deletedBlog)=>{
+    //handle errors in better way later
+    if(err){
+      res.redirect("/blogs")
+    }
+    else{
+      res.redirect("/blogs")
     }
   });
 });

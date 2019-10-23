@@ -37,14 +37,8 @@ const blogSchema = mongoose.Schema({
   created: {type: Date, default: Date.now}
 });
 
-//creates a representation model(collection?) loaded with Schema
+//creates a representation model(collection) loaded with Schema
 var Blog = mongoose.model("Blog", blogSchema);
-
-// Blog.create({
-//   title: "Pizza on Front St is AMAZING",
-//   body: "Delicious, thin crust, cheesy pepperoni & garlic fries",
-//   image: "https://images.unsplash.com/photo-1525518392674-39ba1fca2ec2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
-// });
 
 //RESTFUL ROUTES
 
@@ -123,7 +117,6 @@ app.put("/blogs/:id", (req, res)=>{
     }
   });
 });
-
 
 //DELETE ROUTE
 app.delete("/blogs/:id", (req, res)=>{
